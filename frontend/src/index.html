@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" ng-app="tallyO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="tallyO multi-store ordering">
+  <title>tallyO</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body ng-controller="ShellController as shell">
+  <header class="topbar" ng-if="shell.showAdminNav()">
+    <a class="brand" href="#!/admin"><span class="brand-mark">t</span> tallyO</a>
+    <nav class="topnav" aria-label="Administration">
+      <a href="#!/admin">Stores</a>
+      <a href="#!/admin/users" ng-if="shell.isSuperAdmin()">Users</a>
+      <a href="#!/admin/reports" ng-if="shell.isSuperAdmin()">Reports</a>
+    </nav>
+    <div class="topbar-actions">
+      <span class="user-label" ng-bind="shell.userName()"></span>
+      <button type="button" class="button button-ghost button-small" ng-click="shell.logout()">Sign out</button>
+    </div>
+  </header>
+
+  <main ng-view></main>
+
+  <div class="toast-stack" aria-live="polite">
+    <div class="toast" ng-repeat="notice in shell.notices track by notice.id" ng-class="'toast-' + notice.type" ng-bind="notice.message"></div>
+  </div>
+
+  <script src="/vendor/angular.min.js"></script>
+  <script src="/vendor/angular-route.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/module.js"></script>
+  <script src="/js/services.js"></script>
+  <script src="/js/maps.directive.js"></script>
+  <script src="/js/controllers/auth.controller.js"></script>
+  <script src="/js/controllers/admin.controller.js"></script>
+  <script src="/js/controllers/storefront.controller.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

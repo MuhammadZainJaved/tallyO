@@ -1,0 +1,14 @@
+<div class="store-heading" ng-if="vm.store">
+  <div>
+    <a class="back-link" href="#!/admin">← All stores</a>
+    <h1 ng-bind="vm.store.name"></h1>
+    <span class="status-pill" ng-class="'status-' + vm.store.status" ng-bind="vm.store.status"></span>
+  </div>
+  <a class="button button-secondary" ng-href="#!/shop/{{vm.store.slug}}" target="_blank" rel="noopener">Open storefront ↗</a>
+</div>
+<nav class="subnav" ng-if="vm.store" aria-label="Store management">
+  <a ng-href="#!/admin/stores/{{vm.store.id}}/orders">Orders</a>
+  <a ng-href="#!/admin/stores/{{vm.store.id}}/catalog">Catalog</a>
+  <a ng-href="#!/admin/stores/{{vm.store.id}}/customers">Customers</a>
+  <a ng-href="#!/admin/stores/{{vm.store.id}}/settings">Settings</a>
+</nav>

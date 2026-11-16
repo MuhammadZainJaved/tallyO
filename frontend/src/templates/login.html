@@ -1,0 +1,17 @@
+<section class="auth-page">
+  <div class="auth-panel">
+    <a class="brand brand-large" href="#!/login"><span class="brand-mark">t</span> tallyO</a>
+    <p class="eyebrow">Store operations</p>
+    <h1>Welcome back</h1>
+    <p class="muted">Sign in to manage your stores, catalog, and incoming orders.</p>
+    <form ng-submit="vm.submit()" class="stack-form">
+      <label>Email<input type="email" ng-model="vm.credentials.email" autocomplete="username" required autofocus></label>
+      <label>Password<input type="password" ng-model="vm.credentials.password" autocomplete="current-password" required></label>
+      <p class="form-error" ng-if="vm.error" ng-bind="vm.error"></p>
+      <button class="button button-primary button-block" type="submit" ng-disabled="vm.loading">
+        <span ng-if="!vm.loading">Sign in</span><span ng-if="vm.loading">Signing in…</span>
+      </button>
+    </form>
+  </div>
+  <aside class="auth-art"><div><p class="eyebrow light">One platform, many storefronts</p><h2>Every shop gets its own catalog, identity, and customers.</h2></div></aside>
+</section>

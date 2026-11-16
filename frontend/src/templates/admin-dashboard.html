@@ -1,0 +1,30 @@
+<section class="admin-page">
+  <div class="page-heading"><div><p class="eyebrow">Portfolio</p><h1>Your stores</h1><p class="muted">Manage each shop without mixing its products, orders, or customers.</p></div></div>
+  <p class="form-error" ng-if="vm.error" ng-bind="vm.error"></p>
+  <div class="store-grid" ng-if="vm.stores.length">
+    <article class="store-card" ng-repeat="store in vm.stores track by store.id">
+      <a class="store-card-brand" ng-href="#!/shop/{{store.slug}}" ng-style="{'background-color': store.branding.primary_color || '#2563eb'}">
+        <img ng-if="store.branding.logo_url" ng-src="{{store.branding.logo_url}}" alt="">
+        <span ng-if="!store.branding.logo_url" ng-bind="store.name.charAt(0)"></span>
+      </a>
+      <div class="store-card-body"><div class="row-between"><h2><a ng-href="#!/shop/{{store.slug}}" ng-bind="store.name"></a></h2><span class="status-pill" ng-bind="store.status"></span></div>
+        <p class="muted" ng-bind="store.slug"></p><p><strong ng-bind="store.currency"></strong> · Delivery <span ng-bind="store.delivery_fee"></span></p>
+        <div class="button-row"><a class="button button-primary" ng-href="#!/shop/{{store.slug}}">Open store</a><a class="button button-ghost" ng-href="#!/admin/stores/{{store.id}}/orders">Manage</a></div>
+      </div>
+    </article>
+  </div>
+  <div class="empty-state" ng-if="!vm.loading && !vm.stores.length"><div class="empty-icon">⌂</div><h2>No stores yet</h2><p>Create the first storefront to start adding products.</p></div>
+
+  <section class="panel create-panel" ng-if="vm.isSuperAdmin">
+    <div class="panel-heading"><div><p class="eyebrow">Super admin</p><h2>Create a store</h2></div></div>
+    <form class="form-grid" ng-submit="vm.create()">
+      <label>Store name<input ng-model="vm.form.name" ng-change="vm.slugFromName()" required></label>
+      <label>URL slug<input ng-model="vm.form.slug" ng-change="vm.slugEdited=true" pattern="[a-z0-9-]+" required></label>
+      <label>Timezone<input ng-model="vm.form.timezone" required></label>
+      <label>Currency code<input ng-model="vm.form.currency" minlength="3" maxlength="3" required></label>
+      <label>Delivery fee<input type="number" min="0" step="0.01" ng-model="vm.form.delivery_fee" required></label>
+      <label>Initial admin email <span class="optional">optional</span><input type="email" ng-model="vm.form.admin_email"></label>
+      <div class="form-actions full"><button class="button button-primary" ng-disabled="vm.saving">{{vm.saving ? 'Creating…' : 'Create store'}}</button></div>
+    </form>
+  </section>
+</section>

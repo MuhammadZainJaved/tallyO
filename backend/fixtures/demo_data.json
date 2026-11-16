@@ -1,0 +1,432 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": "10000000-0000-4000-8000-000000000001",
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$tLSl76gTIyx4QKSAgJSKMX$L2ohcJWOjrqmJTiFTnuGnrgxdiV5xjviyWiTeYVvIbM=",
+      "last_login": null,
+      "is_superuser": true,
+      "email": "admin@tallyo.local",
+      "full_name": "TallyO Super Admin",
+      "is_staff": true,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": [],
+      "created_at": "2026-11-01T08:00:00Z",
+      "updated_at": "2026-11-01T08:00:00Z"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "10000000-0000-4000-8000-000000000002",
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$ipAVRTUKIaQRQwQhvyZ0WE$2+l7UibM3peZjMYsdGt4CCGxR7xwBWmh2bxvVBCumsE=",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "alice@freshbasket.local",
+      "full_name": "Alice Ahmed",
+      "is_staff": false,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": [],
+      "created_at": "2026-11-01T08:05:00Z",
+      "updated_at": "2026-11-01T08:05:00Z"
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": "10000000-0000-4000-8000-000000000003",
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$ipAVRTUKIaQRQwQhvyZ0WE$2+l7UibM3peZjMYsdGt4CCGxR7xwBWmh2bxvVBCumsE=",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "bilal@shops.local",
+      "full_name": "Bilal Khan",
+      "is_staff": false,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": [],
+      "created_at": "2026-11-01T08:10:00Z",
+      "updated_at": "2026-11-01T08:10:00Z"
+    }
+  },
+  {
+    "model": "stores.store",
+    "pk": "20000000-0000-4000-8000-000000000001",
+    "fields": {
+      "name": "Fresh Basket Market",
+      "slug": "fresh-basket",
+      "status": "active",
+      "timezone": "Asia/Karachi",
+      "currency": "PKR",
+      "delivery_fee": "150.00",
+      "location_address": "Model Town, Lahore, Pakistan",
+      "latitude": "31.520400",
+      "longitude": "74.358700",
+      "delivery_radius_miles": "1.00",
+      "delivery_radius_enabled": true,
+      "created_at": "2026-11-01T09:00:00Z",
+      "updated_at": "2026-11-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "stores.store",
+    "pk": "20000000-0000-4000-8000-000000000002",
+    "fields": {
+      "name": "Corner Value Mart",
+      "slug": "corner-value-mart",
+      "status": "active",
+      "timezone": "Asia/Karachi",
+      "currency": "PKR",
+      "delivery_fee": "100.00",
+      "location_address": "University Road, Karachi, Pakistan",
+      "latitude": "24.943000",
+      "longitude": "67.120000",
+      "delivery_radius_miles": "1.00",
+      "delivery_radius_enabled": false,
+      "created_at": "2026-11-01T09:05:00Z",
+      "updated_at": "2026-11-01T09:05:00Z"
+    }
+  },
+  {
+    "model": "stores.storebranding",
+    "pk": "21000000-0000-4000-8000-000000000001",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "logo_url": "",
+      "banner_url": "https://picsum.photos/seed/fresh-basket-market/1600/600",
+      "primary_color": "#15803D",
+      "secondary_color": "#14532D",
+      "footer_text": "Fresh groceries from our neighborhood to yours.",
+      "created_at": "2026-11-01T09:00:00Z",
+      "updated_at": "2026-11-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "stores.storebranding",
+    "pk": "21000000-0000-4000-8000-000000000002",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000002",
+      "logo_url": "",
+      "banner_url": "",
+      "primary_color": "#1F2937",
+      "secondary_color": "#0F172A",
+      "footer_text": "",
+      "created_at": "2026-11-01T09:05:00Z",
+      "updated_at": "2026-11-01T09:05:00Z"
+    }
+  },
+  {
+    "model": "stores.storemembership",
+    "pk": "22000000-0000-4000-8000-000000000001",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "user": "10000000-0000-4000-8000-000000000002",
+      "role": "admin",
+      "is_active": true,
+      "created_at": "2026-11-01T09:10:00Z",
+      "updated_at": "2026-11-01T09:10:00Z"
+    }
+  },
+  {
+    "model": "stores.storemembership",
+    "pk": "22000000-0000-4000-8000-000000000002",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "user": "10000000-0000-4000-8000-000000000003",
+      "role": "admin",
+      "is_active": true,
+      "created_at": "2026-11-01T09:11:00Z",
+      "updated_at": "2026-11-01T09:11:00Z"
+    }
+  },
+  {
+    "model": "stores.storemembership",
+    "pk": "22000000-0000-4000-8000-000000000003",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000002",
+      "user": "10000000-0000-4000-8000-000000000003",
+      "role": "admin",
+      "is_active": true,
+      "created_at": "2026-11-01T09:12:00Z",
+      "updated_at": "2026-11-01T09:12:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": "30000000-0000-4000-8000-000000000001",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "name": "Fresh Produce",
+      "slug": "fresh-produce",
+      "description": "Seasonal fruit and vegetables",
+      "display_order": 1,
+      "is_active": true,
+      "created_at": "2026-11-02T08:00:00Z",
+      "updated_at": "2026-11-02T08:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": "30000000-0000-4000-8000-000000000002",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "name": "Dairy & Eggs",
+      "slug": "dairy-eggs",
+      "description": "Daily dairy essentials",
+      "display_order": 2,
+      "is_active": true,
+      "created_at": "2026-11-02T08:01:00Z",
+      "updated_at": "2026-11-02T08:01:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": "30000000-0000-4000-8000-000000000003",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000002",
+      "name": "Pantry",
+      "slug": "pantry",
+      "description": "Staples for every kitchen",
+      "display_order": 1,
+      "is_active": true,
+      "created_at": "2026-11-02T08:02:00Z",
+      "updated_at": "2026-11-02T08:02:00Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "40000000-0000-4000-8000-000000000001",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "category": "30000000-0000-4000-8000-000000000001",
+      "name": "Royal Gala Apples",
+      "slug": "royal-gala-apples",
+      "description": "Crisp locally sourced apples, sold per kilogram.",
+      "sku": "FB-APL-001",
+      "price": "320.00",
+      "image_url": "https://picsum.photos/seed/tallyo-apples/800/600",
+      "is_active": true,
+      "track_inventory": true,
+      "stock_quantity": 38,
+      "created_at": "2026-11-02T09:00:00Z",
+      "updated_at": "2026-11-14T17:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "40000000-0000-4000-8000-000000000002",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "category": "30000000-0000-4000-8000-000000000001",
+      "name": "Farm Fresh Tomatoes",
+      "slug": "farm-fresh-tomatoes",
+      "description": "Ripe red tomatoes, sold per kilogram.",
+      "sku": "FB-TOM-002",
+      "price": "180.00",
+      "image_url": "https://picsum.photos/seed/tallyo-tomatoes/800/600",
+      "is_active": true,
+      "track_inventory": true,
+      "stock_quantity": 55,
+      "created_at": "2026-11-02T09:01:00Z",
+      "updated_at": "2026-11-02T09:01:00Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "40000000-0000-4000-8000-000000000003",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "category": "30000000-0000-4000-8000-000000000002",
+      "name": "Full Cream Milk",
+      "slug": "full-cream-milk",
+      "description": "One litre full cream milk.",
+      "sku": "FB-MLK-003",
+      "price": "260.00",
+      "image_url": "https://picsum.photos/seed/tallyo-milk/800/600",
+      "is_active": true,
+      "track_inventory": true,
+      "stock_quantity": 23,
+      "created_at": "2026-11-02T09:02:00Z",
+      "updated_at": "2026-11-14T17:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "40000000-0000-4000-8000-000000000004",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "category": null,
+      "name": "Reusable Shopping Bag",
+      "slug": "reusable-shopping-bag",
+      "description": "Strong reusable grocery bag.",
+      "sku": "FB-BAG-004",
+      "price": "120.00",
+      "image_url": "https://picsum.photos/seed/tallyo-bag/800/600",
+      "is_active": true,
+      "track_inventory": false,
+      "stock_quantity": 0,
+      "created_at": "2026-11-02T09:03:00Z",
+      "updated_at": "2026-11-02T09:03:00Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "40000000-0000-4000-8000-000000000005",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000002",
+      "category": "30000000-0000-4000-8000-000000000003",
+      "name": "Premium Basmati Rice",
+      "slug": "premium-basmati-rice",
+      "description": "Five kilogram bag of aged basmati rice.",
+      "sku": "CV-RCE-001",
+      "price": "1850.00",
+      "image_url": "https://picsum.photos/seed/tallyo-rice/800/600",
+      "is_active": true,
+      "track_inventory": true,
+      "stock_quantity": 16,
+      "created_at": "2026-11-02T09:04:00Z",
+      "updated_at": "2026-11-02T09:04:00Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "40000000-0000-4000-8000-000000000006",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000002",
+      "category": "30000000-0000-4000-8000-000000000003",
+      "name": "Red Lentils",
+      "slug": "red-lentils",
+      "description": "One kilogram pack of red lentils.",
+      "sku": "CV-LNT-002",
+      "price": "420.00",
+      "image_url": "https://picsum.photos/seed/tallyo-lentils/800/600",
+      "is_active": true,
+      "track_inventory": true,
+      "stock_quantity": 28,
+      "created_at": "2026-11-02T09:05:00Z",
+      "updated_at": "2026-11-14T13:00:00Z"
+    }
+  },
+  {
+    "model": "orders.customer",
+    "pk": "50000000-0000-4000-8000-000000000001",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "phone": "+923001112233",
+      "email": "sara@example.com",
+      "name": "Sara Malik",
+      "last_delivery_address": "House 18, Model Town, Lahore",
+      "order_count": 1,
+      "last_order_at": "2026-11-14T17:00:00Z",
+      "created_at": "2026-11-14T17:00:00Z",
+      "updated_at": "2026-11-14T17:00:00Z"
+    }
+  },
+  {
+    "model": "orders.customer",
+    "pk": "50000000-0000-4000-8000-000000000002",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000002",
+      "phone": "+923219998877",
+      "email": "",
+      "name": "Hamza Ali",
+      "last_delivery_address": "Shop 7, University Road, Karachi",
+      "order_count": 1,
+      "last_order_at": "2026-11-14T13:00:00Z",
+      "created_at": "2026-11-14T13:00:00Z",
+      "updated_at": "2026-11-14T13:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": "60000000-0000-4000-8000-000000000001",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000001",
+      "customer": "50000000-0000-4000-8000-000000000001",
+      "public_token": "61000000-0000-4000-8000-000000000001",
+      "idempotency_key": "fixture-fresh-001",
+      "status": "confirmed",
+      "customer_name": "Sara Malik",
+      "phone_snapshot": "+923001112233",
+      "email_snapshot": "sara@example.com",
+      "delivery_address": "House 18, Model Town, Lahore",
+      "notes": "Please call at the gate.",
+      "currency": "PKR",
+      "subtotal": "900.00",
+      "delivery_fee": "150.00",
+      "total": "1050.00",
+      "status_changed_at": "2026-11-14T17:05:00Z",
+      "created_at": "2026-11-14T17:00:00Z",
+      "updated_at": "2026-11-14T17:05:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": "60000000-0000-4000-8000-000000000002",
+    "fields": {
+      "store": "20000000-0000-4000-8000-000000000002",
+      "customer": "50000000-0000-4000-8000-000000000002",
+      "public_token": "61000000-0000-4000-8000-000000000002",
+      "idempotency_key": "fixture-corner-001",
+      "status": "completed",
+      "customer_name": "Hamza Ali",
+      "phone_snapshot": "+923219998877",
+      "email_snapshot": "",
+      "delivery_address": "Shop 7, University Road, Karachi",
+      "notes": "",
+      "currency": "PKR",
+      "subtotal": "840.00",
+      "delivery_fee": "100.00",
+      "total": "940.00",
+      "status_changed_at": "2026-11-14T14:10:00Z",
+      "created_at": "2026-11-14T13:00:00Z",
+      "updated_at": "2026-11-14T14:10:00Z"
+    }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": "70000000-0000-4000-8000-000000000001",
+    "fields": {
+      "order": "60000000-0000-4000-8000-000000000001",
+      "product": "40000000-0000-4000-8000-000000000001",
+      "product_name": "Royal Gala Apples",
+      "sku": "FB-APL-001",
+      "unit_price": "320.00",
+      "quantity": 2,
+      "line_total": "640.00",
+      "created_at": "2026-11-14T17:00:00Z",
+      "updated_at": "2026-11-14T17:00:00Z"
+    }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": "70000000-0000-4000-8000-000000000002",
+    "fields": {
+      "order": "60000000-0000-4000-8000-000000000001",
+      "product": "40000000-0000-4000-8000-000000000003",
+      "product_name": "Full Cream Milk",
+      "sku": "FB-MLK-003",
+      "unit_price": "260.00",
+      "quantity": 1,
+      "line_total": "260.00",
+      "created_at": "2026-11-14T17:00:01Z",
+      "updated_at": "2026-11-14T17:00:01Z"
+    }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": "70000000-0000-4000-8000-000000000003",
+    "fields": {
+      "order": "60000000-0000-4000-8000-000000000002",
+      "product": "40000000-0000-4000-8000-000000000006",
+      "product_name": "Red Lentils",
+      "sku": "CV-LNT-002",
+      "unit_price": "420.00",
+      "quantity": 2,
+      "line_total": "840.00",
+      "created_at": "2026-11-14T13:00:00Z",
+      "updated_at": "2026-11-14T13:00:00Z"
+    }
+  }
+]

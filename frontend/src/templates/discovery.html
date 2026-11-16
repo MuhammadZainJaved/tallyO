@@ -1,0 +1,53 @@
+<section class="discovery-page">
+  <header class="discovery-header">
+    <a class="brand" href="#!/"><span class="brand-mark">t</span> tallyO</a>
+    <a class="button button-ghost" href="#!/login">Store owner login</a>
+  </header>
+
+  <section class="discovery-hero">
+    <div>
+      <p class="eyebrow light">Your neighborhood marketplace</p>
+      <h1>Find what you need,<br>from stores near you.</h1>
+      <p>Browse independent supermarkets, search their products, and order without creating an account.</p>
+    </div>
+    <form class="hero-search" ng-submit="vm.productQuery=vm.heroQuery; vm.searchProducts()">
+      <input type="search" ng-model="vm.heroQuery" placeholder="Search milk, rice, fruit…" aria-label="Search products">
+      <button type="submit">Search products</button>
+    </form>
+  </section>
+
+  <main class="discovery-content">
+    <section>
+      <div class="section-heading"><div><p class="eyebrow">Shop by store</p><h2>Available stores</h2></div>
+        <form class="discovery-search" ng-submit="vm.searchStores()"><input type="search" ng-model="vm.storeQuery" placeholder="Search stores"><button>Search</button></form>
+      </div>
+      <p class="form-error" ng-if="vm.storeError" ng-bind="vm.storeError"></p>
+      <div class="discovery-store-grid">
+        <a class="discovery-store-card" ng-repeat="store in vm.stores track by store.id" ng-href="#!/shop/{{store.slug}}" ng-style="{'--card-primary': store.branding.primary_color || '#2563eb', '--card-secondary': store.branding.secondary_color || '#0f172a'}">
+          <div class="discovery-store-image" ng-style="store.branding.banner_url && {'background-image':'linear-gradient(120deg, rgba(15,23,42,.15), rgba(15,23,42,.65)), url(' + store.branding.banner_url + ')'}">
+            <img ng-if="store.branding.logo_url" ng-src="{{store.branding.logo_url}}" alt="">
+            <span ng-if="!store.branding.logo_url" ng-bind="store.name.charAt(0)"></span>
+          </div>
+          <div class="discovery-store-body"><div><h3 ng-bind="store.name"></h3><p>{{store.currency}} · Delivery {{vm.money(store.delivery_fee, store.currency)}}</p></div><span>Shop now →</span></div>
+        </a>
+      </div>
+      <div class="empty-state compact" ng-if="!vm.loadingStores && !vm.stores.length"><h3>No stores found</h3><p>Try a different store name.</p></div>
+    </section>
+
+    <section id="products" class="discovery-products-section">
+      <div class="section-heading"><div><p class="eyebrow">Across all stores</p><h2>{{vm.productQuery ? 'Product search results' : 'Browse products'}}</h2></div>
+        <form class="discovery-search" ng-submit="vm.searchProducts()"><input type="search" ng-model="vm.productQuery" placeholder="Search products"><button>Search</button></form>
+      </div>
+      <p class="form-error" ng-if="vm.productError" ng-bind="vm.productError"></p>
+      <div class="discovery-product-grid">
+        <a class="discovery-product-card" ng-repeat="product in vm.products track by product.id" ng-href="#!/shop/{{product.store_slug}}">
+          <div class="discovery-product-image"><img ng-if="product.image_url" ng-src="{{product.image_url}}" alt=""><span ng-if="!product.image_url" ng-bind="product.name.charAt(0)"></span></div>
+          <div><small>{{product.category_name || 'Everyday essential'}} · {{product.store_name}}</small><h3 ng-bind="product.name"></h3><p ng-bind="product.description"></p><footer><strong>{{vm.money(product.price, product.store_currency)}}</strong><span>{{product.is_available ? 'View in store →' : 'Out of stock'}}</span></footer></div>
+        </a>
+      </div>
+      <div class="empty-state compact" ng-if="!vm.loadingProducts && !vm.products.length"><h3>No products found</h3><p>Try another product, category, or store name.</p></div>
+    </section>
+  </main>
+
+  <footer class="discovery-footer"><span><strong>tallyO</strong> · Local shopping made simple</span><a href="#!/login">Manage your store</a></footer>
+</section>

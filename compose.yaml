@@ -1,0 +1,164 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-tallyo}
+      POSTGRES_USER: ${POSTGRES_USER:-tallyo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tallyo}
+    ports:
+      - "${POSTGRES_PORT_FORWARD:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      args:
+        REQUIREMENTS_FILE: development.txt
+    command: >-
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-docker-development-key}
+      DJANGO_DEBUG: "true"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,web
+      POSTGRES_DB: ${POSTGRES_DB:-tallyo}
+      POSTGRES_USER: ${POSTGRES_USER:-tallyo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tallyo}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      CACHE_URL: redis://redis:6379/2
+      REPORT_TIMEZONE: ${REPORT_TIMEZONE:-Asia/Karachi}
+      REPORT_HOUR: ${REPORT_HOUR:-0}
+      REPORT_MINUTE: ${REPORT_MINUTE:-5}
+      PHONE_DEFAULT_REGION: ${PHONE_DEFAULT_REGION:-PK}
+      EMAIL_BACKEND: ${EMAIL_BACKEND:-django.core.mail.backends.console.EmailBackend}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-reports@tallyo.local}
+      GOOGLE_MAPS_BROWSER_API_KEY: ${GOOGLE_MAPS_BROWSER_API_KEY:-}
+    ports:
+      - "${DJANGO_PORT:-8000}:8000"
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/', timeout=2)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      args:
+        REQUIREMENTS_FILE: development.txt
+    command: celery -A config worker --loglevel=INFO
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-docker-development-key}
+      POSTGRES_DB: ${POSTGRES_DB:-tallyo}
+      POSTGRES_USER: ${POSTGRES_USER:-tallyo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tallyo}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      CACHE_URL: redis://redis:6379/2
+      REPORT_TIMEZONE: ${REPORT_TIMEZONE:-Asia/Karachi}
+      REPORT_HOUR: ${REPORT_HOUR:-0}
+      REPORT_MINUTE: ${REPORT_MINUTE:-5}
+      PHONE_DEFAULT_REGION: ${PHONE_DEFAULT_REGION:-PK}
+      EMAIL_BACKEND: ${EMAIL_BACKEND:-django.core.mail.backends.console.EmailBackend}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-reports@tallyo.local}
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  beat:
+    build:
+      context: .
+      args:
+        REQUIREMENTS_FILE: development.txt
+    command: celery -A config beat --loglevel=INFO --schedule=/tmp/celerybeat-schedule
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-docker-development-key}
+      POSTGRES_DB: ${POSTGRES_DB:-tallyo}
+      POSTGRES_USER: ${POSTGRES_USER:-tallyo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tallyo}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      CACHE_URL: redis://redis:6379/2
+      REPORT_TIMEZONE: ${REPORT_TIMEZONE:-Asia/Karachi}
+      REPORT_HOUR: ${REPORT_HOUR:-0}
+      REPORT_MINUTE: ${REPORT_MINUTE:-5}
+      PHONE_DEFAULT_REGION: ${PHONE_DEFAULT_REGION:-PK}
+      EMAIL_BACKEND: ${EMAIL_BACKEND:-django.core.mail.backends.console.EmailBackend}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-reports@tallyo.local}
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "${FRONTEND_PORT:-4200}:80"
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+

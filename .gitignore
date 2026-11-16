@@ -1,0 +1,17 @@
+.env
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
+staticfiles/
+media/
+.idea/
+.vscode/
+frontend/node_modules/
+frontend/npm-debug.log*
+AGENTS.md
+docs/
